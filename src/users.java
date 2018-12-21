@@ -14,7 +14,7 @@ public class users {
         DataOutputStream ds = null;
         ObjectOutputStream objos = null;
         try {
-            os = new FileOutputStream(nu1);
+            os = new FileOutputStream("C:\\Users\\Public\\"+nu1);
             ds = new DataOutputStream(os);
             objos = new ObjectOutputStream(ds);
             objos.writeObject(emp);

@@ -4,6 +4,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
+
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JPasswordField;
@@ -25,15 +27,14 @@ public class login_s {
 	public static class get{
 		private static String u2;
 		void putdata(String u3) {
-			u2=u3;
+			u2="C:\\Users\\Public\\"+u3;
 		}
 		public String getdata() {
 			return u2;
 		}
 		
 	}
-
-	
+    	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -49,7 +50,7 @@ public class login_s {
 	public login_s() {
 		initialize();
 	}
-   	private void initialize() {
+   	private void initialize()  {
 		
 		frame = new JFrame("Encryption and Decryption tool login");
 		frame.getContentPane().setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -60,6 +61,14 @@ public class login_s {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		try {
+			frame.setIconImage(ImageIO.read(new File("icon.png")));
+		}
+		catch (IOException exc) {
+		    exc.printStackTrace();
+		}
+		
+			
 		JLabel lblintro = new JLabel("Please login");
 		lblintro.setFont(new Font("Times New Roman", Font.BOLD, 25));
 		lblintro.setBounds(132, 11, 210, 36);
@@ -89,16 +98,22 @@ public class login_s {
 		frame.getContentPane().add(pwd);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.setForeground(new Color(0, 0, 0));
 		btnLogin.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnLogin.setBackground(new Color(153, 204, 255));
+		btnLogin.setBackground(new Color(0, 204, 255));
 		btnLogin.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				u = user.getText();
 				p = pwd.getText();
 				
-				File f = new File(u);
+				File f = new File("C:\\Users\\Public\\"+u);
 				if(f.exists()==false) {
+					JOptionPane.showMessageDialog(null,"Invalid login details","Login error",JOptionPane.ERROR_MESSAGE);
+					user.setText(null);
+					pwd.setText(null);
+				}
+				else if(u.equals("") || p.equals("")){
 					JOptionPane.showMessageDialog(null,"Invalid login details","Login error",JOptionPane.ERROR_MESSAGE);
 					user.setText(null);
 					pwd.setText(null);
@@ -149,7 +164,7 @@ public class login_s {
 		JButton btnNewUser = new JButton("New user");
 		btnNewUser.setForeground(new Color(0, 0, 0));
 		btnNewUser.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnNewUser.setBackground(new Color(153, 204, 255));
+		btnNewUser.setBackground(new Color(0, 204, 255));
 		btnNewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Newuser.main(null);

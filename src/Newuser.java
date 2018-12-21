@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
@@ -49,6 +50,12 @@ public class Newuser {
 		frame.setLocation(380,320);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		try {
+			frame.setIconImage(ImageIO.read(new File("icon.png")));
+		}
+		catch (IOException exc) {
+		    exc.printStackTrace();
+		}
 		
 		JLabel lblEnterYourUsername = new JLabel("Enter your username");
 		lblEnterYourUsername.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -95,7 +102,7 @@ public class Newuser {
 				nu=nuser.getText();
 				np=npwd.getText();
 				np1=npwd1.getText();
-				File file = new File(nu);
+				File file = new File("C:\\Users\\Public\\"+nu);
 				if(nu.equals("") || np.equals("") || np1.equals("")) {
 					JOptionPane.showMessageDialog(null,"Please fill all the fields","Field error",JOptionPane.ERROR_MESSAGE);
 					nuser.setText(null);

@@ -29,28 +29,47 @@ class Crypto1 {
 
 	private static void doCrypto(int cipherMode, String key, File in,
 			File ou) throws Exceptionforcrypto {
+		FileInputStream inputStream=null;
+		FileOutputStream outputStream=null;
+		 
 		try {
+			
+			
 			Key secretKey = new SecretKeySpec(key.getBytes(), ALGO);
 			Cipher cipher = Cipher.getInstance(TRANS);
 			cipher.init(cipherMode, secretKey);
 			
-			FileInputStream inputStream = new FileInputStream(in);
+			inputStream=new FileInputStream(in);
 			byte[] input = new byte[(int) in.length()];
 			inputStream.read(input);
 			
 			byte[] output = cipher.doFinal(input);
 			
-			FileOutputStream outputStream = new FileOutputStream(ou);
+			outputStream=new FileOutputStream(ou);
 			outputStream.write(output);
 			
-			inputStream.close();
 			outputStream.close();
+			
 			
 		} catch (NoSuchPaddingException | NoSuchAlgorithmException
 				| InvalidKeyException | BadPaddingException
-				| IllegalBlockSizeException | IOException ex) {
-			throw new Exceptionforcrypto("Error on encrypting/decrypting your file",ex);
+				| IllegalBlockSizeException | IOException ex) {		
+			
+				throw new Exceptionforcrypto("Error on encrypting/decrypting your file",ex);
+			
 		}
+		finally {
+			try {
+				inputStream.close();
+				
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
 	}
 }
 
